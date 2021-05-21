@@ -1,0 +1,9 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
+}
+
+datasource mysql {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
