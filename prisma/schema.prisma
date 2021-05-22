@@ -8,9 +8,10 @@ datasource mysql {
 }
 
 model lolgroup {
-  id       Int    @id @default(autoincrement())
-  nickname String @unique
-  userid   String @unique @map("user_id")
+  id       Int     @id @default(autoincrement())
+  nickname String  @unique
+  userid   String  @unique @map("user_id")
   group    String
   img      String
+  chimeId  String?
 }
