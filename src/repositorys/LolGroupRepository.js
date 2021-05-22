@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 export const creatGroup = async (data, groupId) => {
   try {
-    return prisma.lolgroup.create({ data: { nickname: data.nickName, userid: data.userId, group: groupId } });
+    return prisma.lolgroup.create({ data: { nickname: data.nickName, userid: data.userId, group: groupId, img: data.img } });
   } catch (err) {
     console.error(err);
   }
@@ -23,4 +23,10 @@ export const findByGroup = async nickname => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const findImgByNickName = async nickname => {
+  try {
+    return prisma.lolgroup.findMany({ where: { nickname: nickname } });
+  } catch (err) {}
 };
