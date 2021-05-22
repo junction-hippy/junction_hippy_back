@@ -42,7 +42,7 @@ export const createGroup = async (req, res, next) => {
       const GroupCheck = await LolGroupRepository.findByGroup(nickname);
       console.log('test 입니다.');
       console.log(TeamData);
-      const gameId = MatchResponse.data.gameId;
+      const gameId = String(MatchResponse.data.gameId) + String(userTeamId);
       TeamData.map(item => {
         if (item.nickName === nickname) {
           img = item.img;
@@ -52,15 +52,15 @@ export const createGroup = async (req, res, next) => {
       // 그룹이 있다면 바로 리턴
       if (GroupCheck === null) {
         TeamData.map(async item => {
-          await LolGroupRepository.creatGroup(item, String(gameId));
+          await LolGroupRepository.creatGroup(item, gameId);
         });
         res.send({ isGaming: true, isNew: true, userid: id, groupid: gameId, img: img, message: '게임중입니다.(그룹생성)' });
       } else {
-        const group = await LolGroupRepository.findAllByGroup(String(gameId));
+        const group = await LolGroupRepository.findAllByGroup(gameId);
         const groupNotNull = group.filter(user => {
           return user.chimeId;
         });
-        res.send({ isGaming: true, isNew: false, userid: id, groupid: String(gameId), img: img, message: '게임중입니다', groupNotNull });
+        res.send({ isGaming: true, isNew: false, userid: id, groupid: gameId, img: img, message: '게임중입니다', groupNotNull });
       }
     } else {
       //그 외
@@ -131,6 +131,16 @@ export const findUserChimeId = async (req, res, next) => {
   try {
     const user = await LolGroupRepository.findByChimeId(req.params.chimeId);
     return res.send(user[0]);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
+export const deleteChimeId = async (req, res, next) => {
+  try {
+    const user = await LolGroupRepository.deleteChimeId(req.params.chimeId);
+    return res.send(user);
   } catch (err) {
     console.error(err);
     next(err);

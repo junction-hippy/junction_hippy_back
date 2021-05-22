@@ -7,4 +7,6 @@ router.post('/', UserCheck.UserCheckByLol, CheckGameService.createGroup);
 router.post('/connection', CheckGameService.connectCheck);
 router.patch('/chime', CheckGameService.updateChimeId);
 router.get('/:chimeId', CheckGameService.findUserChimeId);
+router.delete('/:chimeId', CheckGameService.deleteChimeId);
+
 export default router;

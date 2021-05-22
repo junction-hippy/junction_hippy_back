@@ -56,3 +56,11 @@ export const findAllByGroup = async group => {
     console.error(err);
   }
 };
+
+export const deleteChimeId = async chimeId => {
+  try {
+    return prisma.lolgroup.updateMany({ where: { chimeId }, data: { chimeId: null } });
+  } catch (err) {
+    console.error(err);
+  }
+};
