@@ -12,4 +12,5 @@ model lolgroup {
   nickname String @unique
   userid   String @unique @map("user_id")
   group    String
+  img      String
 }

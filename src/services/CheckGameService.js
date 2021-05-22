@@ -1,7 +1,7 @@
 import axios from 'axios';
 import env from '../configs';
 import * as LolGroupRepository from '../repositorys/LolGroupRepository';
-
+import { changeChampionIdToName } from '../utils/ChampionMapping';
 export const createGroup = async (req, res, next) => {
   const { nickname } = req.body;
   try {
@@ -22,9 +22,11 @@ export const createGroup = async (req, res, next) => {
 
     if (MatchResponse.status === 200) {
       //게임중일때
-      let test = [];
+      let TeamData = [];
       let userTeamId = 0;
+      let img = 0;
 
+      const imgBaseUrl = 'http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/';
       MatchResponse.data.participants.map(item => {
         if (item.summonerName === nickname) {
           userTeamId = item.teamId;
@@ -32,22 +34,29 @@ export const createGroup = async (req, res, next) => {
       });
       MatchResponse.data.participants.map(item => {
         if (item.teamId === userTeamId) {
-          test.push({ nickName: item.summonerName, userId: item.summonerId });
+          let img = `${imgBaseUrl}${changeChampionIdToName(item.championId)}.png`;
+          TeamData.push({ nickName: item.summonerName, userId: item.summonerId, img: img });
         }
       });
 
-      console.log(nickname);
       const GroupCheck = await LolGroupRepository.findByGroup(nickname);
-      console.log('test', GroupCheck);
-      console.log(test);
+      console.log('test 입니다.');
+      console.log(TeamData);
       let gameId = MatchResponse.data.gameId;
+      TeamData.map(item => {
+        if (item.nickName === nickname) {
+          img = item.img;
+        }
+      });
+      //그룹이 없으면 그룹 생성하고 리턴
+      // 그룹이 있다면 바로 리턴
       if (GroupCheck === null) {
-        test.map(async item => {
+        TeamData.map(async item => {
           await LolGroupRepository.creatGroup(item, String(gameId));
         });
-        res.send({ isGaming: true, userid: id, groupid: gameId, message: '게임중입니다.(그룹생성)' });
+        res.send({ isGaming: true, userid: id, groupid: gameId, img: img, message: '게임중입니다.(그룹생성)' });
       } else {
-        res.send({ isGaming: true, userid: id, groupid: String(gameId), message: '게임중입니다' });
+        res.send({ isGaming: true, userid: id, groupid: String(gameId), img: img, message: '게임중입니다' });
       }
     } else {
       //그 외
