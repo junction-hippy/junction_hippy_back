@@ -13,4 +13,5 @@ export default {
   NODE_ENV: NODE_ENV,
   HOST: env.HOST,
   PORT: Number(env.PORT),
+  LOLAPPKEY: env.LOLAPPKEY,
 };
