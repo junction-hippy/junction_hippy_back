@@ -28,5 +28,23 @@ export const findByGroup = async nickname => {
 export const findImgByNickName = async nickname => {
   try {
     return prisma.lolgroup.findMany({ where: { nickname: nickname } });
-  } catch (err) {}
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateByChime = async (nickname, chimeId) => {
+  try {
+    return prisma.lolgroup.update({ where: { nickname }, data: { chimeId } });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const findByChimeId = async chimeId => {
+  try {
+    return prisma.lolgroup.findMany({ where: { chimeId } });
+  } catch (err) {
+    console.error(err);
+  }
 };
