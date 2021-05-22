@@ -82,7 +82,7 @@ export const createGroup = async (req, res, next) => {
 
 export const connectCheck = async (req, res, next) => {
   try {
-    const { userid } = req.body;
+    const { userid, groupid } = req.body;
     const MatchResponse = await axios({
       url: `https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${userid}?api_key=${env.LOLAPPKEY}`,
       method: 'get',
@@ -94,7 +94,11 @@ export const connectCheck = async (req, res, next) => {
       },
     });
     if (MatchResponse.status === 200) {
-      res.send({ isGaming: true, message: '게임중' });
+      const group = await LolGroupRepository.findAllByGroup(groupid);
+      const groupNotNull = group.filter(user => {
+        return user.chimeId;
+      });
+      res.send({ isGaming: true, message: '게임중', groupNotNull });
     }
   } catch (err) {
     const { groupid } = req.body;
