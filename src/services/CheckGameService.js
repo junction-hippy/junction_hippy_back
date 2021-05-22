@@ -54,9 +54,13 @@ export const createGroup = async (req, res, next) => {
         TeamData.map(async item => {
           await LolGroupRepository.creatGroup(item, String(gameId));
         });
-        res.send({ isGaming: true, userid: id, groupid: gameId, img: img, message: '게임중입니다.(그룹생성)' });
+        res.send({ isGaming: true, isNew: true, userid: id, groupid: gameId, img: img, message: '게임중입니다.(그룹생성)' });
       } else {
-        res.send({ isGaming: true, userid: id, groupid: String(gameId), img: img, message: '게임중입니다' });
+        const group = await LolGroupRepository.findAllByGroup(String(gameId));
+        const groupNotNull = group.filter(user => {
+          return user.chimeId;
+        });
+        res.send({ isGaming: true, isNew: false, userid: id, groupid: String(gameId), img: img, message: '게임중입니다', groupNotNull });
       }
     } else {
       //그 외
