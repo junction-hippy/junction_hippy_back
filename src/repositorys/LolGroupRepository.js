@@ -48,3 +48,11 @@ export const findByChimeId = async chimeId => {
     console.error(err);
   }
 };
+
+export const findAllByGroup = async group => {
+  try {
+    return prisma.lolgroup.findMany({ where: { group } });
+  } catch (err) {
+    console.error(err);
+  }
+};

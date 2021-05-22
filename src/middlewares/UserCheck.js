@@ -21,7 +21,8 @@ export const UserCheckByLol = async (req, res, next) => {
     console.log(req.body.lol);
     next();
   } catch (err) {
-    if (err.response.status) {
+    console.log(err);
+    if (err.response.status === 404) {
       console.error(err.response);
       return res.send({
         userdata: false,
