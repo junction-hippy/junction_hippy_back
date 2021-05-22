@@ -91,7 +91,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.createMeeting
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -106,7 +106,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.join
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -124,7 +124,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.end
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -139,7 +139,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.attendee
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -157,7 +157,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.attendees
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -286,7 +286,7 @@ Resources:
   OnConnectFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Handler: index.onconnect
       Policies:
       - DynamoDBCrudPolicy:
@@ -305,7 +305,7 @@ Resources:
   AuthorizeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Handler: index.authorize
       Policies:
       - DynamoDBCrudPolicy:
@@ -337,7 +337,7 @@ Resources:
   OnDisconnectFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Handler: index.ondisconnect
       Policies:
       - DynamoDBCrudPolicy:
@@ -356,7 +356,7 @@ Resources:
   SendMessageFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://gamp-hippy/fd0854eedb8135b45e47bd564bb56f37
+      CodeUri: s3://gamp-hippy/fa07707900cadf943931e104c67f7446
       Handler: index.sendmessage
       Policies:
       - DynamoDBCrudPolicy:
