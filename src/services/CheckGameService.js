@@ -22,7 +22,7 @@ export const createGroup = async (req, res, next) => {
 
     if (MatchResponse.status === 200) {
       //게임중일때
-      let TeamData = [];
+      const TeamData = [];
       let userTeamId = 0;
       let img = 0;
 
@@ -34,7 +34,7 @@ export const createGroup = async (req, res, next) => {
       });
       MatchResponse.data.participants.map(item => {
         if (item.teamId === userTeamId) {
-          let img = `${imgBaseUrl}${changeChampionIdToName(item.championId)}.png`;
+          const img = `${imgBaseUrl}${changeChampionIdToName(item.championId)}.png`;
           TeamData.push({ nickName: item.summonerName, userId: item.summonerId, img: img });
         }
       });
@@ -42,7 +42,7 @@ export const createGroup = async (req, res, next) => {
       const GroupCheck = await LolGroupRepository.findByGroup(nickname);
       console.log('test 입니다.');
       console.log(TeamData);
-      let gameId = MatchResponse.data.gameId;
+      const gameId = MatchResponse.data.gameId;
       TeamData.map(item => {
         if (item.nickName === nickname) {
           img = item.img;
@@ -108,6 +108,26 @@ export const connectCheck = async (req, res, next) => {
         message: '그룹삭제실패',
       });
     }
+    console.error(err);
+    next(err);
+  }
+};
+
+export const updateChimeId = async (req, res, next) => {
+  try {
+    const updateUser = await LolGroupRepository.updateByChime(req.body.nickname, req.body.chimeId);
+    return res.send(updateUser);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
+export const findUserChimeId = async (req, res, next) => {
+  try {
+    const user = await LolGroupRepository.findByChimeId(req.params.chimeId);
+    return res.send(user[0]);
+  } catch (err) {
     console.error(err);
     next(err);
   }
