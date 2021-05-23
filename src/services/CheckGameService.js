@@ -102,22 +102,20 @@ export const connectCheck = async (req, res, next) => {
     }
   } catch (err) {
     const { groupid } = req.body;
-    if (err.response.status === 404) {
+    console.log(err.response.status);
+    console.log(err.response);
+    if (err.response.status === 403 || err.response.status === 403) {
       console.error(err.response);
-      const response = await LolGroupRepository.deletGroup(groupid);
-      if (response) {
-        return res.send({
-          isGaming: false,
-          message: '게임 중이 아닙니다.',
-        });
-      }
+      await LolGroupRepository.deletGroup(groupid);
+      return res.send({
+        isGaming: false,
+        message: '게임 중이 아닙니다.',
+      });
     } else {
       return res.send({
         message: '그룹삭제실패',
       });
     }
-    console.error(err);
-    next(err);
   }
 };
 
