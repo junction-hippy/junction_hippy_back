@@ -102,10 +102,7 @@ export const connectCheck = async (req, res, next) => {
     }
   } catch (err) {
     const { groupid } = req.body;
-    console.log(err.response.status);
-    console.log(err.response);
     if (err.response.status === 403 || err.response.status === 403) {
-      console.error(err.response);
       await LolGroupRepository.deletGroup(groupid);
       return res.send({
         isGaming: false,
