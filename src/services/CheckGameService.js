@@ -68,7 +68,7 @@ export const createGroup = async (req, res, next) => {
     }
   } catch (err) {
     console.log(err);
-    if (err.response.status === 404) {
+    if (err.response.status === 403 || err.response.status === 403) {
       console.error(err.response);
       return res.send({
         isGaming: false,
