@@ -67,16 +67,10 @@ export const createGroup = async (req, res, next) => {
       res.status(500).send({ message: '알수 없는 에러' });
     }
   } catch (err) {
-    console.log(err);
-    if (err.response.status === 403 || err.response.status === 403) {
-      console.error(err.response);
-      return res.send({
-        isGaming: false,
-        message: '게임 중이 아닙니다.',
-      });
-    }
-    console.error(err);
-    next(err);
+    return res.send({
+      isGaming: false,
+      message: '게임 중이 아닙니다.',
+    });
   }
 };
 
@@ -102,17 +96,11 @@ export const connectCheck = async (req, res, next) => {
     }
   } catch (err) {
     const { groupid } = req.body;
-    if (err.response.status === 403 || err.response.status === 403) {
-      await LolGroupRepository.deletGroup(groupid);
-      return res.send({
-        isGaming: false,
-        message: '게임 중이 아닙니다.',
-      });
-    } else {
-      return res.send({
-        message: '그룹삭제실패',
-      });
-    }
+    await LolGroupRepository.deletGroup(groupid);
+    return res.send({
+      isGaming: false,
+      message: '게임 중이 아닙니다.',
+    });
   }
 };
 
