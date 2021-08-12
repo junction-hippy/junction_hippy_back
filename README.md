@@ -12,7 +12,7 @@ AWS의 Chime을 기반으로 개발을 진행했습니다.
 
 ## 시연 영상
 ![image](https://user-images.githubusercontent.com/28949165/128905429-1cdcc41c-e570-4819-a112-608936563d79.png)
-- 영상을 보기 위해서는 -> [Go Youtube!](https://github.com/junction-hippy/junction_hippy_back.git)
+- 영상을 보기 위해서는 -> [Go Youtube!](https://youtu.be/iSaECC8Gqq8)
 
 ## 주요 기능
 - WebRTC와 AWS Chime을 활용한 서비스
